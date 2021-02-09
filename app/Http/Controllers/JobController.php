@@ -24,8 +24,8 @@ class JobController extends Controller
         if ($count > 20) {
             for ($offset = 0; $offset < $numberOFOffset; $offset++) {
                 $details = DB::table('users')->offset((int)$offset * (int)$limit)->take((int)$limit)->select('email')->get();
-                $emailJob = (new SendEmail($details))->delay(Carbon::now()->addMinutes(5));
-                dispatch($emailJob);
+//                $emailJob = (new SendEmail($details))->delay(Carbon::now()->addMinutes(5));
+                SendEmail::dispatch($details);
             }
             return 'Send Done';
         }
